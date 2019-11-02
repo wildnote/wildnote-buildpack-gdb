@@ -24,11 +24,11 @@ function vendor() {
   mkdir -p $path
   curl $binary -s -o - | tar xz -C $path -f -
 
-  [ -d "$path/fgdb-gdal/bin" ] && export PATH=$path/fgdb-gdal/bin:$PATH
-  export CPPPATH="$path/fgdb-gdal/include:$CPPPATH"
-  export CPATH="$path/fgdb-gdal/include:$CPATH"
-  export LIBRARY_PATH="$path/fgdb-gdal/lib:$LIBRARY_PATH"
-  export LD_LIBRARY_PATH="$path/fgdb-gdal/lib:$LD_LIBRARY_PATH"
+  [ -d "$path/gdal-fgdb/bin" ] && export PATH=$path/gdal-fgdb/bin:$PATH
+  export CPPPATH="$path/gdal-fgdb/include:$CPPPATH"
+  export CPATH="$path/gdal-fgdb/include:$CPATH"
+  export LIBRARY_PATH="$path/gdal-fgdb/lib:$LIBRARY_PATH"
+  export LD_LIBRARY_PATH="$path/gdal-fgdb/lib:$LD_LIBRARY_PATH"
 
   true
 }
@@ -39,7 +39,7 @@ vendor "https://wildnote-vendor-binaries.s3-us-west-1.amazonaws.com/gdal-fgdb.ta
 echo "-----> Configuring build environment"
 
 cat <<EOF > $BUILDPACK_DIR/export
-export PATH="$PATH:\$PATH"
+export PATH="\$PATH:$PATH"
 export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:$LD_LIBRARY_PATH"
 export LIBRARY_PATH="\$LIBRARY_PATH:$LIBRARY_PATH"
 export CPPPATH="\$CPPPATH:$CPPPATH"
@@ -50,7 +50,7 @@ echo "-----> Building runtime environment"
 mkdir -p $BUILD_DIR/.profile.d
 
 cat <<EOF > $BUILD_DIR/.profile.d/gdal.sh
-export PATH="${PATH//$BUILD_DIR//app}:\$PATH"
+export PATH="\$PATH:${PATH//$BUILD_DIR//app}"
 export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:${LD_LIBRARY_PATH//$BUILD_DIR//app}"
 export LIBRARY_PATH="\$LIBRARY_PATH:${LIBRARY_PATH//$BUILD_DIR//app}"
 export CPPPATH="\$CPPPATH:${CPPPATH//$BUILD_DIR//app}"
