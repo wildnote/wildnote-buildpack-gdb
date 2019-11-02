@@ -24,17 +24,17 @@ function vendor() {
   mkdir -p $path
   curl $binary -s -o - | tar xz -C $path -f -
 
-  [ -d "$path/bin" ] && export PATH=$path/bin:$PATH
-  export CPPPATH="$path/include:$CPPPATH"
-  export CPATH="$path/include:$CPATH"
-  export LIBRARY_PATH="$path/lib:$LIBRARY_PATH"
-  export LD_LIBRARY_PATH="$path/lib:$LD_LIBRARY_PATH"
+  [ -d "$path/fgdb-gdal/bin" ] && export PATH=$path/fgdb-gdal/bin:$PATH
+  export CPPPATH="$path/fgdb-gdal/include:$CPPPATH"
+  export CPATH="$path/fgdb-gdal/include:$CPATH"
+  export LIBRARY_PATH="$path/fgdb-gdal/lib:$LIBRARY_PATH"
+  export LD_LIBRARY_PATH="$path/fgdb-gdal/lib:$LD_LIBRARY_PATH"
 
   true
 }
 
 echo "-----> Vendoring binaries"
-vendor "https://wildnote-vendor-binaries.s3-us-west-1.amazonaws.com/gdal-fgdb.tar.gz" "$BUILD_DIR/vendor/gdal"
+vendor "https://wildnote-vendor-binaries.s3-us-west-1.amazonaws.com/gdal-fgdb.tar.gz" "$BUILD_DIR/vendor"
 
 echo "-----> Configuring build environment"
 
