@@ -24,11 +24,11 @@ function vendor() {
   mkdir -p $path
   curl $binary -s -o - | tar xz -C $path -f -
 
-  [ -d "$path/gdal-fgdb/bin" ] && export PATH=$path/gdal-fgdb/bin:$PATH
-  export CPPPATH="$path/gdal-fgdb/include:$CPPPATH"
-  export CPATH="$path/gdal-fgdb/include:$CPATH"
-  export LIBRARY_PATH="$path/gdal-fgdb/lib:$LIBRARY_PATH"
-  export LD_LIBRARY_PATH="$path/gdal-fgdb/lib:$LD_LIBRARY_PATH"
+  [ -d "$path/bin" ] && export PATH=$path/bin:$PATH
+  export CPPPATH="$path/include:$CPPPATH"
+  export CPATH="$path/include:$CPATH"
+  export LIBRARY_PATH="$path/lib:$LIBRARY_PATH"
+  export LD_LIBRARY_PATH="$path/lib:$LD_LIBRARY_PATH"
 
   true
 }
