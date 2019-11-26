@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # bin/detect <build-dir>
 
-echo "GDAL" && exit 0
+echo "FileGDB" && exit 0

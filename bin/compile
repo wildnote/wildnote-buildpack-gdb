@@ -29,14 +29,15 @@ function vendor() {
   export CPATH="$path/include:$CPATH"
   export LIBRARY_PATH="$path/lib:$LIBRARY_PATH"
   export LD_LIBRARY_PATH="$path/lib:$LD_LIBRARY_PATH"
+  export PROJ_LIB="$path/share/proj:$PROJ_LIB"
 
   true
 }
 
-echo "-----> Vendoring binaries"
+echo "-----> Downloading GDAL binaries with FileGDB support"
 vendor "https://wildnote-vendor-binaries.s3-us-west-1.amazonaws.com/gdal-fgdb.tar.gz" "$BUILD_DIR/vendor"
 
-echo "-----> Configuring build environment"
+echo "-----> Configuring environment variables"
 
 cat <<EOF > $BUILDPACK_DIR/export
 export PATH="\$PATH:$PATH"
@@ -44,6 +45,7 @@ export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:$LD_LIBRARY_PATH"
 export LIBRARY_PATH="\$LIBRARY_PATH:$LIBRARY_PATH"
 export CPPPATH="\$CPPPATH:$CPPPATH"
 export CPATH="\$CPATH:$CPATH"
+export PROJ_LIB="\$PROJ_LIB:$PROJ_LIB"
 EOF
 
 echo "-----> Building runtime environment"
@@ -55,4 +57,5 @@ export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:${LD_LIBRARY_PATH//$BUILD_DIR//app}"
 export LIBRARY_PATH="\$LIBRARY_PATH:${LIBRARY_PATH//$BUILD_DIR//app}"
 export CPPPATH="\$CPPPATH:${CPPPATH//$BUILD_DIR//app}"
 export CPATH="\$CPATH:${CPATH//$BUILD_DIR//app}"
+export PROJ_LIB="\$PROJ_LIB:${PROJ_LIB//$BUILD_DIR//app}"
 EOF
